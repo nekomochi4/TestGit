@@ -14,6 +14,6 @@ public class ああああ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //こーそ
+        //こーど
     }
 }

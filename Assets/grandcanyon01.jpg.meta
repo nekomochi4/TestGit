@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      grandcanyon01_0: -5495072774431143763
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
