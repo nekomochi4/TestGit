@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c05416421f0bd784888c590956e563ff
+guid: ddd01f16a268ed7428c1e49f00e10b43
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3775262054832683348
-    second: haiiro_0
+      213: -6964361199372536294
+    second: moon3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: haiiro_0
+      name: moon3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 459305036dc646430800000000000000
-      internalID: 3775262054832683348
+      spriteID: a16f2ef436e995f90800000000000000
+      internalID: -6964361199372536294
       vertices: []
       indices: 
       edges: []
