@@ -16,21 +16,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //Sprite Flip
-        if (rb.velocity.x > 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else if (rb.velocity.x < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-          //Player Movement
-         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
+        // Player Movement
+        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
-            if (Input.GetButtonDown("Jump"))
+        // Sprite Flip
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ”÷¬‚È‘¬“x‚Í–³Ž‹
+        {
+            if (rb.velocity.x > 0)
             {
-             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
-             }
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else if (rb.velocity.x < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
+
+        // Jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+        }
     }
+
 }
