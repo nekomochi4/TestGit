@@ -156,7 +156,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ohosisama2_0: 8235139671224841055
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
