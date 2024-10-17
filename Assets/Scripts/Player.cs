@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Player Movement
+        // Player Movement ‚ ‚ ‚ ‚ 
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Sprite Flip
