@@ -16,8 +16,43 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Player Movement
-        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
+        //上記で追加したコードを削除してこの一文を追加
+        UpdateAnimationState();
+    }
+
+    private void UpdateAnimationState()
+    {
+        //Run
+        if (rb.velocity.x != 0)
+        {
+            GetComponent<Animator>().SetInteger("state", 1);
+        }
+        else
+        {
+            GetComponent<Animator>().SetInteger("state", 0);
+        }
+
+        //Jump / Fall
+        if (rb.velocity.y > 0.1f)
+        {
+            GetComponent<Animator>().SetInteger("state", 2);
+        }
+        else if (rb.velocity.y < -0.1f)
+        {
+            GetComponent<Animator>().SetInteger("state", 3);
+        }
+    
+        //Animation State
+        if (rb.velocity.x != 0)
+        {
+            GetComponent<Animator>().SetInteger("state", 1);
+        }
+        else
+        {
+            GetComponent<Animator>().SetInteger("state", 0);
+        }
+    // Player Movement
+    rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Sprite Flip
         if (Mathf.Abs(rb.velocity.x) > 0.01f) // 微小な速度は無視
