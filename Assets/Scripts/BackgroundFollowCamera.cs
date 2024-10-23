@@ -16,7 +16,7 @@ public class BackgroundFollowCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        // 背景の位置をカメラの位置に合わせて更新
+        // 背景の位置をカメラの位置に合わせて更新!
         transform.position = new Vector3(cameraTransform.position.x + offset.x, cameraTransform.position.y + offset.y, transform.position.z);
     }
 }
