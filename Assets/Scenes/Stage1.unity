@@ -423,7 +423,7 @@ Transform:
   m_GameObject: {fileID: 1606019647}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.007723, y: 0.5226202, z: 0}
+  m_LocalPosition: {x: 31, y: 0.5226202, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2420,6 +2420,7 @@ GameObject:
   - component: {fileID: 2065768926}
   - component: {fileID: 2065768925}
   - component: {fileID: 2065768924}
+  - component: {fileID: 2065768927}
   m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
@@ -4472,7 +4473,7 @@ CompositeCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
@@ -4607,6 +4608,25 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!251 &2065768927
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065768920}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 0
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &2079850013
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,7 +4638,6 @@ GameObject:
   - component: {fileID: 2079850016}
   - component: {fileID: 2079850015}
   - component: {fileID: 2079850014}
-  - component: {fileID: 2079850018}
   - component: {fileID: 2079850017}
   m_Layer: 0
   m_Name: Main Camera
@@ -4670,7 +4689,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.1367784
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4695,7 +4714,7 @@ Transform:
   m_GameObject: {fileID: 2079850013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.12, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4716,21 +4735,6 @@ MonoBehaviour:
   Target: {fileID: 1525117825}
   LeftEdge: {fileID: 1356061335}
   RightEdge: {fileID: 1606019647}
---- !u!114 &2079850018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079850013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b4467b6bd441c43890ca23e190d23c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  LeftEdge: {fileID: 0}
-  RightEdge: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
