@@ -6,9 +6,8 @@ public class Player : MonoBehaviour
 {
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
-
     private Rigidbody2D rb;
-
+    public LayerMask GroundLayer;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,6 +21,10 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimationState()
     {
+        if (Input.GetButtonDown("Jump") && isGrounded())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+        }
         //Run
         if (rb.velocity.x != 0)
         {
@@ -41,7 +44,7 @@ public class Player : MonoBehaviour
         {
             GetComponent<Animator>().SetInteger("state", 3);
         }
-    
+
         //Animation State
         if (rb.velocity.x != 0)
         {
@@ -51,8 +54,8 @@ public class Player : MonoBehaviour
         {
             GetComponent<Animator>().SetInteger("state", 0);
         }
-    // Player Movement
-    rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
+        // Player Movement
+        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Player Movement ‚ ‚ ‚ ‚ 
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
@@ -69,12 +72,15 @@ public class Player : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = true;
             }
         }
-
         // Jump
         if (Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
     }
-
+    private bool isGrounded()
+    {
+        BoxCollider2D c = GetComponent<BoxCollider2D>();
+        return Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, .1f, GroundLayer);
+    }
 }
