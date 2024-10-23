@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 15f;
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -15,18 +16,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        //上記で追加したコードを削除してこの一文を追加
+        // アニメーション状態の更新
         UpdateAnimationState();
     }
 
     private void UpdateAnimationState()
     {
+        // Jump (プレイヤーが地面にいる場合のみジャンプ可能)
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
-        //Run
-        if (rb.velocity.x != 0)
+
+        // Run
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // 微小な速度は無視
         {
             GetComponent<Animator>().SetInteger("state", 1);
         }
@@ -35,49 +38,27 @@ public class Player : MonoBehaviour
             GetComponent<Animator>().SetInteger("state", 0);
         }
 
-        //Jump / Fall
+        // Jump / Fall
         if (rb.velocity.y > 0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 2);
+            GetComponent<Animator>().SetInteger("state", 2); // ジャンプ中
         }
         else if (rb.velocity.y < -0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 3);
+            GetComponent<Animator>().SetInteger("state", 3); // 落下中
         }
 
-        //Animation State
-        if (rb.velocity.x != 0)
-        {
-            GetComponent<Animator>().SetInteger("state", 1);
-        }
-        else
-        {
-            GetComponent<Animator>().SetInteger("state", 0);
-        }
         // Player Movement
-        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
-
-        // Player Movement ああああ
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Sprite Flip
         if (Mathf.Abs(rb.velocity.x) > 0.01f) // 微小な速度は無視
         {
-            if (rb.velocity.x > 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-            else if (rb.velocity.x < 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = true;
-            }
-        }
-        // Jump
-        if (Input.GetButtonDown("Jump"))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
         }
     }
+
+    // 地面に接しているかどうかを判定
     private bool isGrounded()
     {
         BoxCollider2D c = GetComponent<BoxCollider2D>();
