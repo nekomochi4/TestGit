@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -62,6 +64,21 @@ public class Player : MonoBehaviour
     private bool isGrounded()
     {
         BoxCollider2D c = GetComponent<BoxCollider2D>();
-        return Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, .1f, GroundLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, 0.1f, GroundLayer);
+        return hit.collider != null;
     }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("InstaDeath"))
+        {
+            // 現在のステージ名を保存
+            RestartGame.SetLastStage(SceneManager.GetActiveScene().name);
+
+            // リザルトシーンに移動する
+            SceneManager.LoadScene("Result_Scene");
+        }
+    }
+
 }
