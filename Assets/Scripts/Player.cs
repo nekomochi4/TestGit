@@ -81,4 +81,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject obj = collision.gameObject;
+
+        //Frag
+        if (obj.CompareTag("Frag"))
+        {
+            SceneManager.LoadScene("Clear_Scene");
+        }
+    }
+
 }
