@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 439569460}
   - component: {fileID: 439569459}
   - component: {fileID: 439569458}
+  - component: {fileID: 439569461}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -406,13 +407,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 439569456}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 439569461}
+        m_TargetAssemblyTypeName: NextStage, Assembly-CSharp
+        m_MethodName: LoadNextStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -456,6 +457,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439569456}
   m_CullTransparentMesh: 1
+--- !u!114 &439569461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439569456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc68decea4b0d34c99b9c3993979ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextStageName: 
 --- !u!1 &925506360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1094,6 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc68decea4b0d34c99b9c3993979ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextStageName: 
 --- !u!1 &1812895114
 GameObject:
   m_ObjectHideFlags: 0
