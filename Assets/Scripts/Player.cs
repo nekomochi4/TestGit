@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject obj = collision.gameObject;
-
+        //RestartGame.SetNextStage(SceneManager.GetActiveScene().name);
         //Frag
         if (obj.CompareTag("Frag"))
         {
