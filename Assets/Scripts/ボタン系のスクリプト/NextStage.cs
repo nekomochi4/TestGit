@@ -3,39 +3,44 @@ using UnityEngine.SceneManagement;
 
 public class NextStage : MonoBehaviour
 {
-    // Player.csから受け取る次のステージ名を保存する変数
     private static string nextStage;
-    /*このコードの修正からが続き。ステージ名がうまく保存されていない*/
-    // Player.csで次のステージ名をセットするメソッド
-    public static void SetNextStage(string stageName) 
-    {
-        nextStage = stageName;
-    }
 
-    // "Next" ボタンを押した時に呼ばれるメソッド
-    public void LoadNextStage()
+    // 現在のステージに基づき、次のステージ名をセットするメソッド
+    public static void SetNextStage(string currentStage)
     {
-        // 次のステージ名に基づいて条件分岐
-        switch (nextStage)
+        switch (currentStage)
         {
             case "Stage1":
-                SceneManager.LoadScene("Stage2");
+                nextStage = "Stage2";
                 break;
             case "Stage2":
-                SceneManager.LoadScene("Stage3");
+                nextStage = "Stage3";
                 break;
             case "Stage3":
-                SceneManager.LoadScene("Stage4");
+                nextStage = "Stage4";
                 break;
             case "Stage4":
-                SceneManager.LoadScene("Stage5");
+                nextStage = "Stage5";
                 break;
             case "Stage5":
-                SceneManager.LoadScene("ALL_Clear_Scene");
+                nextStage = "ALL_Clear_Scene";
                 break;
             default:
-                Debug.LogError("Unknown stage name: " + nextStage);
+                Debug.LogError("Unknown stage name: " + currentStage);
                 break;
+        }
+    }
+
+    // ボタンを押した時に呼ばれるメソッドで、次のステージに遷移
+    public void LoadNextStage()
+    {
+        if (!string.IsNullOrEmpty(nextStage))
+        {
+            SceneManager.LoadScene(nextStage);
+        }
+        else
+        {
+            Debug.LogError("Next stage not set!");
         }
     }
 }

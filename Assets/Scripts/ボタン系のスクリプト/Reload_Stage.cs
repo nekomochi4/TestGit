@@ -3,10 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class RestartGame : MonoBehaviour
 {
-    // 元のステージ名を保持する変数
     private static string lastStage;
-   
-    // ゲームが終了したときに、ステージ名を記録する
+
+    // ステージ名を記録するメソッド
     public static void SetLastStage(string stageName)
     {
         lastStage = stageName;
@@ -22,7 +21,7 @@ public class RestartGame : MonoBehaviour
         }
         else
         {
-            // 万が一ステージ名が記録されていなかった場合は現在のシーンを再ロード
+            // ステージ名が記録されていない場合、現在のシーンを再ロード
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
