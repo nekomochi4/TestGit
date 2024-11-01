@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SaveCurrentStage();
     }
 
     void Update()
@@ -73,10 +75,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("InstaDeath"))
         {
-            // 現在のステージ名を保存
-            RestartGame.SetLastStage(SceneManager.GetActiveScene().name);
-
-            // リザルトシーンに移動する
+            // 死亡したらリザルトシーンに移動する
             SceneManager.LoadScene("Result_Scene");
         }
     }
@@ -84,12 +83,17 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject obj = collision.gameObject;
-        //RestartGame.SetNextStage(SceneManager.GetActiveScene().name);
-        //Frag
+        // フラグアイテムに接触した場合、クリアシーンに移動する
         if (obj.CompareTag("Frag"))
         {
             SceneManager.LoadScene("Clear_Scene");
         }
     }
-
+    public void SaveCurrentStage()
+    {
+        string currentStage = SceneManager.GetActiveScene().name;
+        RestartGame.SetLastStage(currentStage);
+        NextStage.SetNextStage(currentStage);
+    }
 }
+
