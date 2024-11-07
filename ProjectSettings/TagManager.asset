@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Flag
   - InstaDeath
   - Frag
+  - EnemyZako
+  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
