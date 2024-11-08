@@ -119,8 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
- クリア後の画面遷移
-
 --- !u!1 &92760396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2574172854168514513, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
@@ -128,6 +126,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &92760397
 MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1316,61 +1315,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
- クリア後の画面遷移
-  m_AnimatedTiles: {}
-  m_TileAssetArray:
-  - m_RefCount: 84
-    m_Data: {fileID: 11400000, guid: 6eba2cecf0b095b4cbef4abaafb92944, type: 2}
-  m_TileSpriteArray:
-  - m_RefCount: 84
-    m_Data: {fileID: 1477321789, guid: 3c77401735128c643886a86c9bef920d, type: 3}
-  m_TileMatrixArray:
-  - m_RefCount: 84
-    m_Data:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-  m_TileColorArray:
-  - m_RefCount: 84
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
-  m_TileObjectToInstantiateArray: []
-  m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: 0, y: -7, z: 0}
-  m_Size: {x: 155, y: 7, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
-  m_TileOrientation: 0
-  m_TileOrientationMatrix:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
-
   - first: {x: 74, y: -7, z: 0}
     second:
       serializedVersion: 2
@@ -2491,26 +2435,15 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -11, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 197
+  - m_RefCount: 112
     m_Data: {fileID: 11400000, guid: 6eba2cecf0b095b4cbef4abaafb92944, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 197
   - m_RefCount: 196
     m_Data: {fileID: 1477321789, guid: 3c77401735128c643886a86c9bef920d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 197
   - m_RefCount: 196
     m_Data:
       e00: 1
@@ -2530,14 +2463,11 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 197
   - m_RefCount: 196
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -11, y: -8, z: 0}
-  m_Size: {x: 197, y: 9, z: 1}
   m_Origin: {x: -9, y: -9, z: 0}
   m_Size: {x: 195, y: 9, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -2747,7 +2677,6 @@ Transform:
   m_GameObject: {fileID: 1525117825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.87, y: -1.5, z: 0}
   m_LocalPosition: {x: -8.16, y: -1.5, z: 0}
   m_LocalScale: {x: 0.96464, y: 0.96464, z: 0.96464}
   m_ConstrainProportionsScale: 0
@@ -8597,8 +8526,6 @@ Tilemap:
   - first: {x: 17, y: -3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 1
       m_TileIndex: 1
       m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
@@ -10358,19 +10285,15 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 162
   - m_RefCount: 161
     m_Data: {fileID: 11400000, guid: 399143dead52c5048929e33eec79d1df, type: 2}
-  - m_RefCount: 339
   - m_RefCount: 340
     m_Data: {fileID: 11400000, guid: cdc9c76ba6c46ae4c8a5e30bce4e3395, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 339
   - m_RefCount: 340
     m_Data: {fileID: 210197151, guid: 3c77401735128c643886a86c9bef920d, type: 3}
-  - m_RefCount: 162
   - m_RefCount: 161
     m_Data: {fileID: -7833354044680766655, guid: 3c77401735128c643886a86c9bef920d, type: 3}
   - m_RefCount: 0
@@ -11091,6 +11014,7 @@ PrefabInstance:
     - target: {fileID: 2574172854168514513, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      value: EnemyZako
       objectReference: {fileID: 0}
     - target: {fileID: 5829832202177853042, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11155,8 +11079,5 @@ SceneRoots:
   - {fileID: 1525117829}
   - {fileID: 1356061336}
   - {fileID: 1606019648}
- クリア後の画面遷移
-  - {fileID: 1724504622}
-
   - {fileID: 852756014}
   - {fileID: 4241608461612031403}
