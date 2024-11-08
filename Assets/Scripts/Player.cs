@@ -13,26 +13,12 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
 
-    // 最大HPと現在のHP
-    int maxHp = 10;
-    int Hp;
-
-    // Slider
-    public Slider slider;
+   
 
     void Start()
     {
-        // sliderが設定されていない場合、自動的にシーン内から取得する
-        if (slider == null)
-        {
-            slider = GameObject.FindObjectOfType<Slider>();
-        }
-
-        // Sliderを最大HPに設定
-        slider.value = maxHp;
-
-        // HPを最大HPと同じ値に設定
-        Hp = maxHp;
+   
+      
 
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
@@ -44,18 +30,7 @@ public class Player : MonoBehaviour
         UpdateAnimationState();
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        // Enemyタグを設定しているオブジェクトに接触したとき
-        if (collider.gameObject.tag == "Enemy")
-        {
-            // HPから1を引く
-            Hp = Hp - 1;
-
-            // HPをSliderに反映
-            slider.value = (float)Hp;
-        }
-    }
+  
 
     private void UpdateAnimationState()
     {
