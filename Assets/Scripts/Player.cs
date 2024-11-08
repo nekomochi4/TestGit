@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; //UIを使うときに書きます。
 
 public class Player : MonoBehaviour
 {
@@ -12,8 +13,27 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
 
+    // 最大HPと現在のHP
+    int maxHp = 10;
+    int Hp;
+
+    // Slider
+    public Slider slider;
+
     void Start()
     {
+        // sliderが設定されていない場合、自動的にシーン内から取得する
+        if (slider == null)
+        {
+            slider = GameObject.FindObjectOfType<Slider>();
+        }
+
+        // Sliderを最大HPに設定
+        slider.value = maxHp;
+
+        // HPを最大HPと同じ値に設定
+        Hp = maxHp;
+
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
     }
@@ -22,6 +42,19 @@ public class Player : MonoBehaviour
     {
         // アニメーション状態の更新
         UpdateAnimationState();
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        // Enemyタグを設定しているオブジェクトに接触したとき
+        if (collider.gameObject.tag == "Enemy")
+        {
+            // HPから1を引く
+            Hp = Hp - 1;
+
+            // HPをSliderに反映
+            slider.value = (float)Hp;
+        }
     }
 
     private void UpdateAnimationState()
@@ -70,7 +103,6 @@ public class Player : MonoBehaviour
         return hit.collider != null;
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("InstaDeath"))
@@ -89,6 +121,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("Clear_Scene");
         }
     }
+
     public void SaveCurrentStage()
     {
         string currentStage = SceneManager.GetActiveScene().name;
@@ -96,4 +129,3 @@ public class Player : MonoBehaviour
         NextStage.SetNextStage(currentStage);
     }
 }
-
