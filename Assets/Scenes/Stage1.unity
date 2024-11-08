@@ -2437,7 +2437,6 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 197
   - m_RefCount: 112
     m_Data: {fileID: 11400000, guid: 6eba2cecf0b095b4cbef4abaafb92944, type: 2}
   m_TileSpriteArray:
