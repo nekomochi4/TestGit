@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; //UI‚ğg‚¤‚Æ‚«‚É‘‚«‚Ü‚·B
+using UnityEngine.UI; //UIï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
 public class Player : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ó‘Ô‚ÌXV
+        // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ÌXï¿½V
         UpdateAnimationState();
     }
 
@@ -34,14 +34,14 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        // Jump (ƒvƒŒƒCƒ„[‚ª’n–Ê‚É‚¢‚éê‡‚Ì‚İƒWƒƒƒ“ƒv‰Â”\)
+        // Jump (ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½nï¿½Ê‚É‚ï¿½ï¿½ï¿½ê‡ï¿½Ì‚İƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\)
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
 
         // Run
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ”÷¬‚È‘¬“x‚Í–³‹
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ï¿½ï¿½ï¿½ï¿½ï¿½È‘ï¿½ï¿½xï¿½Í–ï¿½ï¿½ï¿½
         {
             GetComponent<Animator>().SetInteger("state", 1);
         }
@@ -53,24 +53,24 @@ public class Player : MonoBehaviour
         // Jump / Fall
         if (rb.velocity.y > 0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 2); // ƒWƒƒƒ“ƒv’†
+            GetComponent<Animator>().SetInteger("state", 2); // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½
         }
         else if (rb.velocity.y < -0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 3); // —‰º’†
+            GetComponent<Animator>().SetInteger("state", 3); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
 
         // Player Movement
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Sprite Flip
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ”÷¬‚È‘¬“x‚Í–³‹
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ï¿½ï¿½ï¿½ï¿½ï¿½È‘ï¿½ï¿½xï¿½Í–ï¿½ï¿½ï¿½
         {
             GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
         }
     }
 
-    // ’n–Ê‚ÉÚ‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è
+    // ï¿½nï¿½Ê‚ÉÚ‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ”»’ï¿½
     private bool isGrounded()
     {
         BoxCollider2D c = GetComponent<BoxCollider2D>();
@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("InstaDeath"))
         {
-            // €–S‚µ‚½‚çƒŠƒUƒ‹ƒgƒV[ƒ“‚ÉˆÚ“®‚·‚é
+            // ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½çƒŠï¿½Uï¿½ï¿½ï¿½gï¿½Vï¿½[ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
             SceneManager.LoadScene("Result_Scene");
         }
     }
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject obj = collision.gameObject;
-        // ƒtƒ‰ƒOƒAƒCƒeƒ€‚ÉÚG‚µ‚½ê‡AƒNƒŠƒAƒV[ƒ“‚ÉˆÚ“®‚·‚é
+        // ï¿½tï¿½ï¿½ï¿½Oï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ÉÚGï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½Nï¿½ï¿½ï¿½Aï¿½Vï¿½[ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½
         if (obj.CompareTag("Frag"))
         {
             SceneManager.LoadScene("Clear_Scene");
