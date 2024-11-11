@@ -2739,7 +2739,6 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  slider: {fileID: 0}
 --- !u!95 &1525117831
 Animator:
   serializedVersion: 7
