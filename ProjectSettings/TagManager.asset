@@ -49,3 +49,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: "Hp\u30D0\u30FC"
+    uniqueID: 3688400121
+    locked: 0
