@@ -3,13 +3,13 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 2.0f;
-    private bool isMovingRight = true; //falseやったら左に行く
+    private bool isMovingRight = true;
 
     private void Update()
     {
         // 左右移動
-        float direction = isMovingRight ? 1 : -1;
-        transform.Translate(Vector2.right * direction * speed * Time.deltaTime);
+        float direction = isMovingRight ? 1 : -1;//どっちに動くかdirection変数で決定する
+        transform.Translate(Vector2.right * direction * speed * Time.deltaTime);//deltaTimeとかけたら一定のスピードで動く
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

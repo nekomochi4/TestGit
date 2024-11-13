@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; //UIを使うときに書きます。
 
 public class Player : MonoBehaviour
 {
@@ -12,8 +13,13 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
 
+   
+
     void Start()
     {
+   
+      
+
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
     }
@@ -23,6 +29,8 @@ public class Player : MonoBehaviour
         // アニメーション状態の更新
         UpdateAnimationState();
     }
+
+  
 
     private void UpdateAnimationState()
     {
@@ -70,7 +78,6 @@ public class Player : MonoBehaviour
         return hit.collider != null;
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("InstaDeath"))
@@ -89,6 +96,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("Clear_Scene");
         }
     }
+
     public void SaveCurrentStage()
     {
         string currentStage = SceneManager.GetActiveScene().name;
@@ -96,4 +104,3 @@ public class Player : MonoBehaviour
         NextStage.SetNextStage(currentStage);
     }
 }
-
