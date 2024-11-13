@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; //UI���g���Ƃ��ɏ����܂��B
+using UnityEngine.UI; //UI���g���Ƃ��ɏ����܂��B
 
 public class Player : MonoBehaviour
 {
@@ -15,8 +16,13 @@ public class Player : MonoBehaviour
 
    
 
+   
+
     void Start()
     {
+   
+      
+
    
       
 
@@ -29,6 +35,8 @@ public class Player : MonoBehaviour
         // �A�j���[�V������Ԃ̍X�V
         UpdateAnimationState();
     }
+
+  
 
   
 
@@ -96,6 +104,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("Clear_Scene");
         }
     }
+
 
     public void SaveCurrentStage()
     {
