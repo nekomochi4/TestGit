@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 554443000}
   - component: {fileID: 554442999}
   m_Layer: 5
-  m_Name: Button
+  m_Name: btnStage5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 554443001}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 554442999}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Stage5
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &554443001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +347,7 @@ GameObject:
   - component: {fileID: 608409845}
   - component: {fileID: 608409844}
   m_Layer: 5
-  m_Name: btStage2
+  m_Name: btnStage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +428,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 608409846}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 608409844}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Stage2
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &608409846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,7 +493,7 @@ GameObject:
   - component: {fileID: 776049348}
   - component: {fileID: 776049351}
   m_Layer: 5
-  m_Name: btStage1
+  m_Name: btnStage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -721,7 +745,7 @@ GameObject:
   - component: {fileID: 913748693}
   - component: {fileID: 913748692}
   m_Layer: 5
-  m_Name: btStage3
+  m_Name: btnStage3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,7 +826,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 913748694}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 913748692}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Stage3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &913748694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,7 +1299,7 @@ GameObject:
   - component: {fileID: 1390672198}
   - component: {fileID: 1390672197}
   m_Layer: 5
-  m_Name: btStage4
+  m_Name: btnStage4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1344,7 +1380,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1390672199}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1390672197}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1390672199
 MonoBehaviour:
   m_ObjectHideFlags: 0
