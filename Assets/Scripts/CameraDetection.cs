@@ -7,7 +7,7 @@ public class CameraDetection : MonoBehaviour
     private Camera mainCamera;
     private Renderer enemyRenderer;
     private EnemyMovement enemyMovement;
-
+    
     private void Start()
     {
         mainCamera = Camera.main;
