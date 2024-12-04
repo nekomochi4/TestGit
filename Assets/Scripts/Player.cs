@@ -1,36 +1,40 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; //UIを使うときに書きます。
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{
+{   
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
+    public float bounceForce = 10f; // 踏みつけ後のジャンプ力
+    public float playerHp = 150;//プレイヤーの体力（仮）
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
-
-   
+    private bool isDead = false;
+    private BoxCollider2D bxCol;//ここから11/28
 
     void Start()
     {
-   
-      
-
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
+        //PrintObjectHierarchy(gameObject);
     }
 
     void Update()
     {
         // アニメーション状態の更新
         UpdateAnimationState();
+
+
     }
 
-  
+
 
     private void UpdateAnimationState()
     {
@@ -77,30 +81,103 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, 0.1f, GroundLayer);
         return hit.collider != null;
     }
+    //----------------------------------消すならここから---------------------------------------------
+    //プレイヤーの死亡判定
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("InstaDeath"))
+        GameObject obj = collision.gameObject;
+        //踏みつけの処理　：未
+       /* if (obj.CompareTag("StompCheck"))
         {
-            // 死亡したらリザルトシーンに移動する
+            StompEnemy();
+        }*/
+
+        //クリア時の処理
+        if (obj.CompareTag("Frag"))//Fragタグのオブジェクトに触れたら
+        {
+            SceneManager.LoadScene("Claer_Scene");
+        }
+
+        //落下死
+        if (obj.CompareTag("InstaDeath"))
+        {
+            SceneManager.LoadScene("Result_Scene");
+        }
+
+        //敵との当たり判定の処理　：未
+        if (obj.CompareTag("Enemy"))
+        {
+            HitEnemy(obj);
+        }
+
+    }
+
+   
+    //敵を踏みつけたら呼び出される
+    private void StompEnemy()
+    {
+        Debug.Log("踏みつけました");
+
+    }
+    //試しに
+    private void HitEnemy(GameObject enemy)
+    {
+        Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
+        Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
+        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+        // プレイヤーの底辺が敵の上辺より上にある場合
+        if (playerBounds.min.y > enemyBounds.max.y)
+        {
+            Debug.Log("敵を踏みつけました: " + enemy.name);
+            if (enemyCollider != null)
+            {
+                enemyCollider.enabled = false;
+            }
+
+            // 敵を落下させる
+            Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+            if (enemyRb != null)
+            {
+                enemyRb.bodyType = RigidbodyType2D.Dynamic; // 重力を有効化
+                enemyRb.gravityScale = 1f; // 必要なら重力倍率を調整
+            }
+
+            // プレイヤーを跳ねさせる
+            rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+
+        }
+        else
+        {
+            PlayerHpCalc(); // プレイヤーがダメージを受ける
+            Debug.Log("敵に接触してダメージを受けました");
+        }
+    }
+
+    //プレイヤーの体力の計算
+    private void PlayerHpCalc()
+    {
+        playerHp = playerHp - 30;
+                Debug.Log("体力は残り" + playerHp);
+        if (playerHp  <= 0)
+        {
             SceneManager.LoadScene("Result_Scene");
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //playerが死んだかどうかの判定
+    private void DeadDecision()
     {
-        GameObject obj = collision.gameObject;
-        // フラグアイテムに接触した場合、クリアシーンに移動する
-        if (obj.CompareTag("Frag"))
-        {
-            SceneManager.LoadScene("Clear_Scene");
-        }
+
     }
 
-    public void SaveCurrentStage()
-    {
-        string currentStage = SceneManager.GetActiveScene().name;
-        RestartGame.SetLastStage(currentStage);
-        NextStage.SetNextStage(currentStage);
-    }
+    //---------------------------------------------ここまで----------------------------------------------
+    public void SaveCurrentStage() {
+            string currentStage = SceneManager.GetActiveScene().name;
+            RestartGame.SetLastStage(currentStage);
+            NextStage.SetNextStage(currentStage);
+         }
 }
+
+
+
