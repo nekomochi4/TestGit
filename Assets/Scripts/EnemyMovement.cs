@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 2.0f;
+    public float speed = 1.3f;
     private bool isMovingRight = true;
 
     private void Update()
