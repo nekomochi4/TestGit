@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,28 +9,32 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{
+{   
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
     public float bounceForce = 10f; // 踏みつけ後のジャンプ力
+    public float playerHp = 150;//プレイヤーの体力（仮）
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
     private bool isDead = false;
+    private BoxCollider2D bxCol;//ここから11/28
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
-        PrintObjectHierarchy(gameObject);
+        //PrintObjectHierarchy(gameObject);
     }
 
     void Update()
     {
         // アニメーション状態の更新
         UpdateAnimationState();
+
+
     }
 
-  
+
 
     private void UpdateAnimationState()
     {
@@ -76,141 +81,102 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, 0.1f, GroundLayer);
         return hit.collider != null;
     }
+    //----------------------------------消すならここから---------------------------------------------
+    //プレイヤーの死亡判定
 
-    // デバッグ用：オブジェクトの階層構造を表示
-    private void PrintObjectHierarchy(GameObject obj, string indent = "")
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        string info = $"{indent}Object: {obj.name}, Tag: {obj.tag}, Layer: {LayerMask.LayerToName(obj.layer)}";
-        Debug.Log(info);
-
-        // 親オブジェクトの情報
-        if (obj.transform.parent != null)
+        GameObject obj = collision.gameObject;
+        //踏みつけの処理　：未
+       /* if (obj.CompareTag("StompCheck"))
         {
-            Debug.Log($"{indent}Parent: {obj.transform.parent.name}");
+            StompEnemy();
+        }*/
+
+        //クリア時の処理
+        if (obj.CompareTag("Frag"))//Fragタグのオブジェクトに触れたら
+        {
+            SceneManager.LoadScene("Claer_Scene");
         }
 
-        // コンポーネント情報
-        Component[] components = obj.GetComponents<Component>();
-        foreach (Component comp in components)
+        //落下死
+        if (obj.CompareTag("InstaDeath"))
         {
-            Debug.Log($"{indent}Component: {comp.GetType().Name}");
+            SceneManager.LoadScene("Result_Scene");
         }
 
-        // 子オブジェクトを再帰的に表示
-        foreach (Transform child in obj.transform)
+        //敵との当たり判定の処理　：未
+        if (obj.CompareTag("Enemy"))
         {
-            PrintObjectHierarchy(child.gameObject, indent + "  ");
+            HitEnemy(obj);
         }
 
+    }
 
-    } //ここまででバック用
-
-    private void OnCollisionEnter2D_(Collision2D collision)
+   
+    //敵を踏みつけたら呼び出される
+    private void StompEnemy()
     {
-        if (collision.gameObject.CompareTag("InstaDeath"))
+        Debug.Log("踏みつけました");
+
+    }
+    //試しに
+    private void HitEnemy(GameObject enemy)
+    {
+        Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
+        Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
+        Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
+        // プレイヤーの底辺が敵の上辺より上にある場合
+        if (playerBounds.min.y > enemyBounds.max.y)
         {
-            // 死亡したらリザルトシーンに移動する
+            Debug.Log("敵を踏みつけました: " + enemy.name);
+            if (enemyCollider != null)
+            {
+                enemyCollider.enabled = false;
+            }
+
+            // 敵を落下させる
+            Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+            if (enemyRb != null)
+            {
+                enemyRb.bodyType = RigidbodyType2D.Dynamic; // 重力を有効化
+                enemyRb.gravityScale = 1f; // 必要なら重力倍率を調整
+            }
+
+            // プレイヤーを跳ねさせる
+            rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+
+        }
+        else
+        {
+            PlayerHpCalc(); // プレイヤーがダメージを受ける
+            Debug.Log("敵に接触してダメージを受けました");
+        }
+    }
+
+    //プレイヤーの体力の計算
+    private void PlayerHpCalc()
+    {
+        playerHp = playerHp - 30;
+                Debug.Log("体力は残り" + playerHp);
+        if (playerHp  <= 0)
+        {
             SceneManager.LoadScene("Result_Scene");
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //playerが死んだかどうかの判定
+    private void DeadDecision()
     {
-        if (isDead) return;  // 既に死亡処理中なら無視
 
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            // 衝突した位置を確認
-            Vector2 hitPoint = collision.contacts[0].point;
-            Vector2 playerBottom = new Vector2(transform.position.x, GetComponent<Collider2D>().bounds.min.y);
-
-            // プレイヤーの足元から少し上までを踏みつけ判定とする
-            float stompThreshold = 0.1f; // 適宜調整してください
-
-            if (rb.velocity.y < 0 && hitPoint.y < (transform.position.y - stompThreshold))
-            {
-                // 踏みつけ成功
-                HandleEnemyStomped(collision.gameObject);
-            }
-            else
-            {
-                // 敵に当たってダメージ
-                HandlePlayerDeath();
-            }
-        }
-        else if (collision.gameObject.CompareTag("InstaDeath"))
-        {
-            HandlePlayerDeath();
-        }
     }
 
-    private void HandleEnemyStomped(GameObject enemy)
-    {
-        // 敵を無効化
-        SpriteRenderer enemySprite = enemy.GetComponent<SpriteRenderer>();
-        if (enemySprite != null)
-        {
-            enemySprite.enabled = false;
-        }
-
-        // コライダーを無効化
-        Collider2D[] colliders = enemy.GetComponents<Collider2D>();
-        foreach (var collider in colliders)
-        {
-            collider.enabled = false;
-        }
-
-        // 跳ね返り
-        rb.velocity = new Vector2(rb.velocity.x, bounceForce);
-
-        // 遅延して敵を完全に削除
-        StartCoroutine(DelayedDestroyEnemy(enemy));
-    }
-
-    private void HandlePlayerDeath()
-    {
-        if (isDead) return;
-
-        isDead = true;
-        // 死亡アニメーションなどを追加できます
-        StartCoroutine(DelayedLoadResult());
-    }
-
-    private IEnumerator DelayedLoadResult()
-    {
-        // 少し待ってからシーン遷移（必要に応じて調整）
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Result_Scene");
-    }
-
-    private IEnumerator DelayedDestroyEnemy(GameObject enemy)
-    {
-        Debug.Log($"Destroy target: {enemy.name}");
-        yield return new WaitForSeconds(0.5f);
-
-        if (enemy != null && enemy.CompareTag("Enemy")) // タグが正しいか再確認
-        {
-            Destroy(enemy);
-        }
-        else
-        {
-            Debug.LogWarning("Destroy skipped: Object is null or not tagged as 'Enemy'");
-        }
-    }
-
-
-    // シーン開始時の初期化
-    private void OnEnable()
-    {
-        isDead = false;
-    }
-
-public void SaveCurrentStage()
-    {
-        string currentStage = SceneManager.GetActiveScene().name;
-        RestartGame.SetLastStage(currentStage);
-        NextStage.SetNextStage(currentStage);
-    }
+    //---------------------------------------------ここまで----------------------------------------------
+    public void SaveCurrentStage() {
+            string currentStage = SceneManager.GetActiveScene().name;
+            RestartGame.SetLastStage(currentStage);
+            NextStage.SetNextStage(currentStage);
+         }
 }
 
 
