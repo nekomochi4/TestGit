@@ -103,4 +103,19 @@ public class Player : MonoBehaviour
         RestartGame.SetLastStage(currentStage);
         NextStage.SetNextStage(currentStage);
     }
+    // 対象となるタグ名
+    public string targetTag = "GrowItem";
+
+    // 衝突時の処理
+    private void OnTriggerEnter(Collider other)
+    {
+        // 衝突相手のタグが指定のものか確認
+        if (other.CompareTag(targetTag))
+        {
+            // プレイヤーのサイズを2倍に変更
+            transform.localScale *= 5.0f;
+
+        }
+    }
+
 }
