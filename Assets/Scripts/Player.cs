@@ -87,11 +87,6 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = collision.gameObject;
-        //踏みつけの処理　：未
-       /* if (obj.CompareTag("StompCheck"))
-        {
-            StompEnemy();
-        }*/
 
         //クリア時の処理
         if (obj.CompareTag("Frag"))//Fragタグのオブジェクトに触れたら
@@ -111,16 +106,13 @@ public class Player : MonoBehaviour
             HitEnemy(obj);
         }
 
+        if (obj.CompareTag("Patapata"))
+        {
+            HITPata(obj);
+        }
     }
 
-   
-    //敵を踏みつけたら呼び出される
-    private void StompEnemy()
-    {
-        Debug.Log("踏みつけました");
-
-    }
-    //試しに
+    //敵に当たった際と、踏みつけた時の処理
     private void HitEnemy(GameObject enemy)
     {
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
@@ -140,12 +132,11 @@ public class Player : MonoBehaviour
             if (enemyRb != null)
             {
                 enemyRb.bodyType = RigidbodyType2D.Dynamic; // 重力を有効化
-                enemyRb.gravityScale = 1f; // 必要なら重力倍率を調整
+                enemyRb.gravityScale = 1.5f; // 必要なら重力倍率を調整
             }
 
             // プレイヤーを跳ねさせる
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
-
         }
         else
         {
@@ -165,10 +156,31 @@ public class Player : MonoBehaviour
         }
     }
 
-    //playerが死んだかどうかの判定
-    private void DeadDecision()
+    private void HITPata(GameObject enemy)
     {
+        Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
+        Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
 
+        // プレイヤーの底辺が敵の上辺より上にある場合
+        if (playerBounds.min.y > enemyBounds.max.y)
+        {
+            Debug.Log("敵を踏みつけました: " + enemy.name);
+
+            // パタパタの落下処理を呼び出す
+            PatapataMovement patapataMovement = enemy.GetComponent<PatapataMovement>();
+            if (patapataMovement != null)
+            {
+                patapataMovement.StompedDown(gameObject); //ここの修正から
+            }
+
+            // プレイヤーを跳ねさせる
+            rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+        }
+        else
+        {
+            PlayerHpCalc(); // プレイヤーがダメージを受ける
+            Debug.Log("敵に接触してダメージを受けました");
+        }
     }
 
     //---------------------------------------------ここまで----------------------------------------------
