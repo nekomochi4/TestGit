@@ -8,6 +8,7 @@ TagManager:
   - Frag
   - Wall
   - Enemy
+  - GrowItem
   - StompCheck
   - Ground
   - Grid

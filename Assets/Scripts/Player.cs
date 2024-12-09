@@ -12,12 +12,12 @@ public class Player : MonoBehaviour
 {   
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
-    public float bounceForce = 10f; // “¥‚İ‚Â‚¯Œã‚ÌƒWƒƒƒ“ƒv—Í
-    public float playerHp = 150;//ƒvƒŒƒCƒ„[‚Ì‘Ì—Íi‰¼j
+    public float bounceForce = 10f; // ï¿½ï¿½ï¿½İ‚Â‚ï¿½ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½
+    public float playerHp = 150;//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‘Ì—Íiï¿½ï¿½ï¿½j
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
     private bool isDead = false;
-    private BoxCollider2D bxCol;//‚±‚±‚©‚ç11/28
+    private BoxCollider2D bxCol;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11/28
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“ó‘Ô‚ÌXV
+        // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ÌXï¿½V
         UpdateAnimationState();
 
 
@@ -38,14 +38,14 @@ public class Player : MonoBehaviour
 
     private void UpdateAnimationState()
     {
-        // Jump (ƒvƒŒƒCƒ„[‚ª’n–Ê‚É‚¢‚éê‡‚Ì‚İƒWƒƒƒ“ƒv‰Â”\)
+        // Jump (ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½nï¿½Ê‚É‚ï¿½ï¿½ï¿½ê‡ï¿½Ì‚İƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\)
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
 
         // Run
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ”÷¬‚È‘¬“x‚Í–³‹
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ï¿½ï¿½ï¿½ï¿½ï¿½È‘ï¿½ï¿½xï¿½Í–ï¿½ï¿½ï¿½
         {
             GetComponent<Animator>().SetInteger("state", 1);
         }
@@ -57,50 +57,50 @@ public class Player : MonoBehaviour
         // Jump / Fall
         if (rb.velocity.y > 0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 2); // ƒWƒƒƒ“ƒv’†
+            GetComponent<Animator>().SetInteger("state", 2); // ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½
         }
         else if (rb.velocity.y < -0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 3); // —‰º’†
+            GetComponent<Animator>().SetInteger("state", 3); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
 
         // Player Movement
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
         // Sprite Flip
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ”÷¬‚È‘¬“x‚Í–³‹
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // ï¿½ï¿½ï¿½ï¿½ï¿½È‘ï¿½ï¿½xï¿½Í–ï¿½ï¿½ï¿½
         {
             GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
         }
     }
 
-    // ’n–Ê‚ÉÚ‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğ”»’è
+    // ï¿½nï¿½Ê‚ÉÚ‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ”»’ï¿½
     private bool isGrounded()
     {
         BoxCollider2D c = GetComponent<BoxCollider2D>();
         RaycastHit2D hit = Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, 0.1f, GroundLayer);
         return hit.collider != null;
     }
-    //----------------------------------Á‚·‚È‚ç‚±‚±‚©‚ç---------------------------------------------
-    //ƒvƒŒƒCƒ„[‚Ì€–S”»’è
+    //----------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½È‚ç‚±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---------------------------------------------
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = collision.gameObject;
 
-        //ƒNƒŠƒA‚Ìˆ—
-        if (obj.CompareTag("Frag"))//Fragƒ^ƒO‚ÌƒIƒuƒWƒFƒNƒg‚ÉG‚ê‚½‚ç
+        //ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
+        if (obj.CompareTag("Frag"))//Fragï¿½^ï¿½Oï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ÉGï¿½ê‚½ï¿½ï¿½
         {
             SceneManager.LoadScene("Claer_Scene");
         }
 
-        //—‰º€
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (obj.CompareTag("InstaDeath"))
         {
             SceneManager.LoadScene("Result_Scene");
         }
 
-        //“G‚Æ‚Ì“–‚½‚è”»’è‚Ìˆ—@F–¢
+        //ï¿½Gï¿½Æ‚Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½@ï¿½Fï¿½ï¿½
         if (obj.CompareTag("Enemy"))
         {
             HitEnemy(obj);
@@ -112,44 +112,44 @@ public class Player : MonoBehaviour
         }
     }
 
-    //“G‚É“–‚½‚Á‚½Û‚ÆA“¥‚İ‚Â‚¯‚½‚Ìˆ—
+    //ï¿½Gï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û‚ÆAï¿½ï¿½ï¿½İ‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
     private void HitEnemy(GameObject enemy)
     {
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
         Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
         Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
-        // ƒvƒŒƒCƒ„[‚Ì’ê•Ó‚ª“G‚Ìã•Ó‚æ‚èã‚É‚ ‚éê‡
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì’ï¿½Ó‚ï¿½ï¿½Gï¿½Ìï¿½Ó‚ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ê‡
         if (playerBounds.min.y > enemyBounds.max.y)
         {
-            Debug.Log("“G‚ğ“¥‚İ‚Â‚¯‚Ü‚µ‚½: " + enemy.name);
+            Debug.Log("ï¿½Gï¿½ğ“¥‚İ‚Â‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½: " + enemy.name);
             if (enemyCollider != null)
             {
                 enemyCollider.enabled = false;
             }
 
-            // “G‚ğ—‰º‚³‚¹‚é
+            // ï¿½Gï¿½ğ—‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
             {
-                enemyRb.bodyType = RigidbodyType2D.Dynamic; // d—Í‚ğ—LŒø‰»
-                enemyRb.gravityScale = 1.5f; // •K—v‚È‚çd—Í”{—¦‚ğ’²®
+                enemyRb.bodyType = RigidbodyType2D.Dynamic; // ï¿½dï¿½Í‚ï¿½Lï¿½ï¿½ï¿½ï¿½
+                enemyRb.gravityScale = 1.5f; // ï¿½Kï¿½vï¿½È‚ï¿½dï¿½Í”{ï¿½ï¿½ï¿½ğ’²ï¿½
             }
 
-            // ƒvƒŒƒCƒ„[‚ğ’µ‚Ë‚³‚¹‚é
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ğ’µ‚Ë‚ï¿½ï¿½ï¿½ï¿½ï¿½
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
         }
         else
         {
-            PlayerHpCalc(); // ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚é
-            Debug.Log("“G‚ÉÚG‚µ‚Äƒ_ƒ[ƒW‚ğó‚¯‚Ü‚µ‚½");
+            PlayerHpCalc(); // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚ï¿½
+            Debug.Log("ï¿½Gï¿½ÉÚGï¿½ï¿½ï¿½Äƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚Ü‚ï¿½ï¿½ï¿½");
         }
     }
 
-    //ƒvƒŒƒCƒ„[‚Ì‘Ì—Í‚ÌŒvZ
+    //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì‘Ì—Í‚ÌŒvï¿½Z
     private void PlayerHpCalc()
     {
         playerHp = playerHp - 30;
-                Debug.Log("‘Ì—Í‚Íc‚è" + playerHp);
+                Debug.Log("ï¿½Ì—Í‚Ícï¿½ï¿½" + playerHp);
         if (playerHp  <= 0)
         {
             SceneManager.LoadScene("Result_Scene");
@@ -161,34 +161,49 @@ public class Player : MonoBehaviour
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
         Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
 
-        // ƒvƒŒƒCƒ„[‚Ì’ê•Ó‚ª“G‚Ìã•Ó‚æ‚èã‚É‚ ‚éê‡
+        // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì’ï¿½Ó‚ï¿½ï¿½Gï¿½Ìï¿½Ó‚ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ê‡
         if (playerBounds.min.y > enemyBounds.max.y)
         {
-            Debug.Log("“G‚ğ“¥‚İ‚Â‚¯‚Ü‚µ‚½: " + enemy.name);
+            Debug.Log("ï¿½Gï¿½ğ“¥‚İ‚Â‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½: " + enemy.name);
 
-            // ƒpƒ^ƒpƒ^‚Ì—‰ºˆ—‚ğŒÄ‚Ño‚·
+            // ï¿½pï¿½^ï¿½pï¿½^ï¿½Ì—ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½
             PatapataMovement patapataMovement = enemy.GetComponent<PatapataMovement>();
             if (patapataMovement != null)
             {
-                patapataMovement.StompedDown(gameObject); //‚±‚±‚ÌC³‚©‚ç
+                patapataMovement.StompedDown(gameObject); //ï¿½ï¿½ï¿½ï¿½ï¿½ÌCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
 
-            // ƒvƒŒƒCƒ„[‚ğ’µ‚Ë‚³‚¹‚é
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ğ’µ‚Ë‚ï¿½ï¿½ï¿½ï¿½ï¿½
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
         }
         else
         {
-            PlayerHpCalc(); // ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚é
-            Debug.Log("“G‚ÉÚG‚µ‚Äƒ_ƒ[ƒW‚ğó‚¯‚Ü‚µ‚½");
+            PlayerHpCalc(); // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚ï¿½
+            Debug.Log("ï¿½Gï¿½ÉÚGï¿½ï¿½ï¿½Äƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚Ü‚ï¿½ï¿½ï¿½");
         }
     }
 
-    //---------------------------------------------‚±‚±‚Ü‚Å----------------------------------------------
-    public void SaveCurrentStage() {
-            string currentStage = SceneManager.GetActiveScene().name;
-            RestartGame.SetLastStage(currentStage);
-            NextStage.SetNextStage(currentStage);
-         }
+    public void SaveCurrentStage()
+    {
+        string currentStage = SceneManager.GetActiveScene().name;
+        RestartGame.SetLastStage(currentStage);
+        NextStage.SetNextStage(currentStage);
+    }
+    // ï¿½ÎÛ‚Æ‚È‚ï¿½^ï¿½Oï¿½ï¿½
+    public string targetTag = "GrowItem";
+
+    // ï¿½Õ“Ëï¿½ï¿½Ìï¿½ï¿½ï¿½
+    private void OnTriggerEnter(Collider other)
+    {
+        // ï¿½Õ“Ë‘ï¿½ï¿½ï¿½Ìƒ^ï¿½Oï¿½ï¿½ï¿½wï¿½ï¿½Ì‚ï¿½ï¿½Ì‚ï¿½ï¿½mï¿½F
+        if (other.CompareTag(targetTag))
+        {
+            // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½2ï¿½{ï¿½É•ÏX
+            transform.localScale *= 5.0f;
+
+        }
+    }
+
 }
 
 
