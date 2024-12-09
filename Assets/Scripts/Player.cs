@@ -9,43 +9,40 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
-{   
+{
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
-    public float bounceForce = 10f; // ���݂���̃W�����v��
-    public float playerHp = 150;//�v���C���[�̗̑́i���j
+    public float bounceForce = 10f; // 踏みつけたときのジャンプ力
+    public float playerHp = 150; // プレイヤーの体力（初期値）
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
     private bool isDead = false;
-    private BoxCollider2D bxCol;//��������11/28
+    private BoxCollider2D bxCol; // プレイヤーのBoxCollider2D
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         SaveCurrentStage();
+        // オブジェクト階層のデバッグ用出力
         //PrintObjectHierarchy(gameObject);
     }
 
     void Update()
     {
-        // �A�j���[�V������Ԃ̍X�V
+        // アニメーション状態の更新
         UpdateAnimationState();
-
-
     }
-
-
 
     private void UpdateAnimationState()
     {
-        // Jump (�v���C���[���n�ʂɂ���ꍇ�̂݃W�����v�\)
+        // ジャンプ（プレイヤーが地面にいる場合のみジャンプ可能）
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
         }
 
-        // Run
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // �����ȑ��x�͖���
+        // Runアニメーションの状態設定
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // 横移動速度がわずかでもある場合
         {
             GetComponent<Animator>().SetInteger("state", 1);
         }
@@ -54,103 +51,105 @@ public class Player : MonoBehaviour
             GetComponent<Animator>().SetInteger("state", 0);
         }
 
-        // Jump / Fall
+        // ジャンプまたは落下中のアニメーション状態設定
         if (rb.velocity.y > 0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 2); // �W�����v��
+            GetComponent<Animator>().SetInteger("state", 2); // ジャンプ中
         }
         else if (rb.velocity.y < -0.1f)
         {
-            GetComponent<Animator>().SetInteger("state", 3); // ������
+            GetComponent<Animator>().SetInteger("state", 3); // 落下中
         }
 
-        // Player Movement
+        // プレイヤーの移動処理
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * MoveSpeed, rb.velocity.y);
 
-        // Sprite Flip
-        if (Mathf.Abs(rb.velocity.x) > 0.01f) // �����ȑ��x�͖���
+        // スプライトの左右反転処理
+        if (Mathf.Abs(rb.velocity.x) > 0.01f) // 横移動速度がわずかでもある場合
         {
             GetComponent<SpriteRenderer>().flipX = rb.velocity.x < 0;
         }
     }
 
-    // �n�ʂɐڂ��Ă��邩�ǂ����𔻒�
+    // 地面に接地しているかを判定する
     private bool isGrounded()
     {
         BoxCollider2D c = GetComponent<BoxCollider2D>();
         RaycastHit2D hit = Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, 0.1f, GroundLayer);
         return hit.collider != null;
     }
-    //----------------------------------�����Ȃ炱������---------------------------------------------
-    //�v���C���[�̎��S����
 
+    // プレイヤーの接触処理
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject obj = collision.gameObject;
 
-        //�N���A���̏���
-        if (obj.CompareTag("Frag"))//Frag�^�O�̃I�u�W�F�N�g�ɐG�ꂽ��
+        // クリア用オブジェクトとの接触
+        if (obj.CompareTag("Frag"))
         {
-            SceneManager.LoadScene("Claer_Scene");
+            Debug.Log("旗と接触しました");
+            SceneManager.LoadScene("Clear_Scene");
         }
 
-        //������
+        //落下死等の即死系
         if (obj.CompareTag("InstaDeath"))
         {
             SceneManager.LoadScene("Result_Scene");
         }
 
-        //�G�Ƃ̓����蔻��̏����@�F��
+        // 通常の敵との接触処理
         if (obj.CompareTag("Enemy"))
         {
             HitEnemy(obj);
         }
 
+        // パタパタとの接触処理
         if (obj.CompareTag("Patapata"))
         {
             HITPata(obj);
         }
     }
 
-    //�G�ɓ��������ۂƁA���݂������̏���
+    // 敵を踏んだり接触した際の処理
     private void HitEnemy(GameObject enemy)
     {
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
         Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
         Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
-        // �v���C���[�̒�ӂ��G�̏�ӂ���ɂ���ꍇ
+
+        // プレイヤーの底辺が敵の上辺よりも上の場合
         if (playerBounds.min.y > enemyBounds.max.y)
         {
-            Debug.Log("�G�𓥂݂��܂���: " + enemy.name);
+            Debug.Log("敵を踏みつけました: " + enemy.name);
             if (enemyCollider != null)
             {
                 enemyCollider.enabled = false;
             }
 
-            // �G�𗎉�������
+            // 敵を落下させる処理
             Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
             if (enemyRb != null)
             {
-                enemyRb.bodyType = RigidbodyType2D.Dynamic; // �d�͂�L����
-                enemyRb.gravityScale = 1.5f; // �K�v�Ȃ�d�͔{���𒲐�
+                enemyRb.bodyType = RigidbodyType2D.Dynamic; // 物理演算を有効化
+                enemyRb.gravityScale = 1.5f; // 重力を調整
             }
 
-            // �v���C���[�𒵂˂�����
+            // プレイヤーをバウンドさせる
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
         }
         else
         {
-            PlayerHpCalc(); // �v���C���[���_���[�W���󂯂�
-            Debug.Log("�G�ɐڐG���ă_���[�W���󂯂܂���");
+            PlayerHpCalc(); // プレイヤーがダメージを受ける
+            Debug.Log("敵に接触してダメージを受けました");
         }
     }
 
-    //�v���C���[�̗̑͂̌v�Z
+    // プレイヤーの体力計算
     private void PlayerHpCalc()
     {
-        playerHp = playerHp - 30;
-                Debug.Log("�̗͎͂c��" + playerHp);
-        if (playerHp  <= 0)
+        playerHp -= 30;
+        Debug.Log("現在の体力: " + playerHp);
+        if (playerHp <= 0)
         {
             SceneManager.LoadScene("Result_Scene");
         }
@@ -161,25 +160,24 @@ public class Player : MonoBehaviour
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
         Bounds enemyBounds = enemy.GetComponent<BoxCollider2D>().bounds;
 
-        // �v���C���[�̒�ӂ��G�̏�ӂ���ɂ���ꍇ
         if (playerBounds.min.y > enemyBounds.max.y)
         {
-            Debug.Log("�G�𓥂݂��܂���: " + enemy.name);
+            Debug.Log("敵を踏みつけました: " + enemy.name);
 
-            // �p�^�p�^�̗����������Ăяo��
+            // パタパタの落下処理を呼び出す
             PatapataMovement patapataMovement = enemy.GetComponent<PatapataMovement>();
             if (patapataMovement != null)
             {
-                patapataMovement.StompedDown(gameObject); //�����̏C������
+                patapataMovement.StompedDown(gameObject); // プレイヤー自身を引数として渡す
             }
 
-            // �v���C���[�𒵂˂�����
+            // プレイヤーをバウンドさせる
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
         }
         else
         {
-            PlayerHpCalc(); // �v���C���[���_���[�W���󂯂�
-            Debug.Log("�G�ɐڐG���ă_���[�W���󂯂܂���");
+            PlayerHpCalc(); // プレイヤーがダメージを受ける
+            Debug.Log("敵に接触してダメージを受けました");
         }
     }
 
@@ -189,22 +187,17 @@ public class Player : MonoBehaviour
         RestartGame.SetLastStage(currentStage);
         NextStage.SetNextStage(currentStage);
     }
-    // �ΏۂƂȂ�^�O��
+
+    // アイテムとの接触処理
     public string targetTag = "GrowItem";
 
-    // �Փˎ��̏���
     private void OnTriggerEnter(Collider other)
     {
-        // �Փˑ���̃^�O���w��̂��̂��m�F
+        // アイテムタグを確認
         if (other.CompareTag(targetTag))
         {
-            // �v���C���[�̃T�C�Y��2�{�ɕύX
+            // プレイヤーのサイズを大きくする
             transform.localScale *= 5.0f;
-
         }
     }
-
 }
-
-
-
