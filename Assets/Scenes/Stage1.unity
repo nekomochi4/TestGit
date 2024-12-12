@@ -5655,6 +5655,7 @@ Transform:
   - {fileID: 4241608461612031404}
   - {fileID: 383724887}
   - {fileID: 171447090}
+  - {fileID: 274153122}
   - {fileID: 108663601}
   - {fileID: 1070306078}
   - {fileID: 1025614804}
@@ -6444,7 +6445,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1371747196}
     m_Modifications:
     - target: {fileID: 2574172854168514513, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_Name
@@ -6456,11 +6457,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5829832202177853042, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 48.347
+      value: -54.172997
       objectReference: {fileID: 0}
     - target: {fileID: 5829832202177853042, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5829832202177853042, guid: 55c4bb941b46e6c45a97888132556119, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16661,4 +16662,3 @@ SceneRoots:
   - {fileID: 852756014}
   - {fileID: 157839018}
   - {fileID: 301942972}
-  - {fileID: 1581013672}

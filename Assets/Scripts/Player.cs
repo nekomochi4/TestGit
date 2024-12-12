@@ -155,6 +155,10 @@ public class Player : MonoBehaviour
         }
     }
 
+
+
+
+
     private void HITPata(GameObject enemy)
     {
         Bounds playerBounds = GetComponent<BoxCollider2D>().bounds;
