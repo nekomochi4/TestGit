@@ -5,6 +5,12 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError("ÉVÅ[ÉìñºÇ™ãÛÇ≈Ç∑ÅI");
+            return;
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 }
