@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title_Screen.unity
     guid: 88d4108408bb09342be785558b5d2c21
   - enabled: 1
+    path: Assets/Scenes/Explanation_Scene.unity
+    guid: 9d0e143abb58a0b46b25598d1d2ae8d8
+  - enabled: 1
     path: Assets/Scenes/Select_Stage.unity
     guid: 46f15c4fe98ded34480e5da9f9b73d9c
   - enabled: 1
@@ -32,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Result_Scene.unity
     guid: b5eab398ca4d717478565608b5bbc497
+  - enabled: 1
+    path: Assets/Scenes/ALL_Clear_Scene.unity
+    guid: 0d19fec6a6f13d240a91c51f19a2b3f3
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

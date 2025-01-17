@@ -3025,7 +3025,7 @@ Transform:
   m_GameObject: {fileID: 852756011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 176.72, y: -0.54, z: 0}
+  m_LocalPosition: {x: 176.72, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7946,7 +7946,6 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  targetTag: GrowItem
 --- !u!95 &1525117831
 Animator:
   serializedVersion: 7
