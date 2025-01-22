@@ -7,16 +7,23 @@ public class Player : MonoBehaviour
 {
     public float MoveSpeed = 3f;
     public float JumpForce = 15f;
-    public float bounceForce = 10f; // 踏みつけたときのジャンプ力
-    public float playerHp = 150; // プレイヤーの体力（初期値）
+    public float bounceForce = 10f;
+    public float playerHp = 150;
     private Rigidbody2D rb;
     public LayerMask GroundLayer;
     private bool isDead = false;
     private string stageName;
 
+    // 効果音用のフィールド
+    public AudioClip jumpSound;
+    public AudioClip attackSound;
+    public AudioClip damageSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
         SaveCurrentStage();
     }
 
@@ -31,26 +38,27 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, JumpForce);
+            PlaySound(jumpSound); // ジャンプ音を再生
         }
 
         // アニメーション状態の更新
         Animator animator = GetComponent<Animator>();
         if (Mathf.Abs(rb.velocity.x) > 0.01f)
         {
-            animator.SetInteger("state", 1); // 移動中
+            animator.SetInteger("state", 1);
         }
         else
         {
-            animator.SetInteger("state", 0); // 静止中
+            animator.SetInteger("state", 0);
         }
 
         if (rb.velocity.y > 0.1f)
         {
-            animator.SetInteger("state", 2); // ジャンプ中
+            animator.SetInteger("state", 2);
         }
         else if (rb.velocity.y < -0.1f)
         {
-            animator.SetInteger("state", 3); // 落下中
+            animator.SetInteger("state", 3);
         }
 
         // プレイヤーの移動処理
@@ -126,6 +134,7 @@ public class Player : MonoBehaviour
             }
 
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+            PlaySound(attackSound); // 攻撃音を再生
         }
         else
         {
@@ -150,6 +159,7 @@ public class Player : MonoBehaviour
             }
 
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+            PlaySound(attackSound); // 攻撃音を再生
         }
         else
         {
@@ -162,6 +172,7 @@ public class Player : MonoBehaviour
     {
         playerHp -= 30;
         Debug.Log("現在の体力: " + playerHp);
+        PlaySound(damageSound); // 被弾音を再生
         if (playerHp <= 0)
         {
             SceneManager.LoadScene("Result_Scene");
@@ -181,6 +192,14 @@ public class Player : MonoBehaviour
         if (other.CompareTag("GrowItem"))
         {
             transform.localScale *= 5.0f;
+        }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
         }
     }
 }

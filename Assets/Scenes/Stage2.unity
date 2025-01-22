@@ -5820,7 +5820,9 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  targetTag: GrowItem
+  jumpSound: {fileID: 8300000, guid: 955b4ad2d51439f47954f05166462473, type: 3}
+  attackSound: {fileID: 8300000, guid: f1f478f6e8c67674da9294d68ad0001d, type: 3}
+  damageSound: {fileID: 8300000, guid: a023a2de106400d4b829d6df8714b197, type: 3}
 --- !u!95 &1525117831
 Animator:
   serializedVersion: 7
@@ -17077,7 +17079,7 @@ Tilemap:
   - m_RefCount: 171
     m_Data: {fileID: -7833354044680766655, guid: 3c77401735128c643886a86c9bef920d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 745
+  - m_RefCount: 763
     m_Data:
       e00: 1
       e01: 0
@@ -17096,7 +17098,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 745
+  - m_RefCount: 763
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1

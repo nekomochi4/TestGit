@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - Grid
   - Patapata
+  - Audio
   layers:
   - Default
   - TransparentFX
