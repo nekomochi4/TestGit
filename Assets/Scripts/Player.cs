@@ -22,8 +22,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // シーン間で Player を保持
+       
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource が見つかりません。");
+        }
         SaveCurrentStage();
     }
 
